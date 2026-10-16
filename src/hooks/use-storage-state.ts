@@ -39,13 +39,18 @@ export function useStorageState(key: string): UseStateHook<string> {
       try {
         if (typeof localStorage !== 'undefined') {
           setState(localStorage.getItem(key));
+        } else {
+          setState(null);
         }
       } catch (e) {
         console.error('Local storage is unavailable:', e);
+        setState(null);
       }
     } else {
       SecureStore.getItemAsync(key).then((value) => {
         setState(value);
+      }).catch(() => {
+        setState(null);
       });
     }
   }, [key]);
