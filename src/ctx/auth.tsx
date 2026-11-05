@@ -1,5 +1,4 @@
-import { SplashScreen } from 'expo-router';
-import { createContext, use, useEffect, type PropsWithChildren } from 'react';
+import { createContext, use, type PropsWithChildren } from 'react';
 
 import { useStorageState } from '@/hooks/use-storage-state';
 
@@ -17,7 +16,6 @@ export function useSession() {
   }
   return value;
 }
-
 export function SessionProvider({ children }: PropsWithChildren) {
   const [[isLoading, session], setSession] = useStorageState('session');
 
@@ -36,16 +34,4 @@ export function SessionProvider({ children }: PropsWithChildren) {
       {children}
     </AuthContext.Provider>
   );
-}
-
-export function SplashScreenController() {
-  const { isLoading } = useSession();
-
-  useEffect(() => {
-    if (!isLoading) {
-      void SplashScreen.hide();
-    }
-  }, [isLoading]);
-
-  return null;
 }

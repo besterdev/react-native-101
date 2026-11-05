@@ -53,14 +53,14 @@ export function useStorageState(key: string): UseStateHook<string> {
         setState(null);
       });
     }
-  }, [key]);
+  }, [key, setState]);
 
   const setValue = useCallback(
     (value: string | null) => {
       setState(value);
       void setStorageItemAsync(key, value);
     },
-    [key],
+    [key, setState],
   );
 
   return [state, setValue];
